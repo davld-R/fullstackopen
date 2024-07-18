@@ -3,6 +3,28 @@ New Note Diagram
 participant browser
 participant server
 
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+  activate server
+  server-->>browser: HTML document
+  deactivate server
+
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+  activate server
+  server-->>browser: the css file
+  deactivate server
+
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+  activate server
+  server-->>browser: the JavaScript file
+  deactivate server
+
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+  activate server
+  server-->>browser [{ "content": "Hola a todosNo entiendo que hay que enviar como parte 0, alguien que explique, porfis <3", "date": "2024-07-18T20:12:57.769Z" }, ... ]
+  deactivate server
+
+  Note new note is created and page does not reload 
+
   browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
   activate server
   server-->>browser: [{ "content": "Hola a todos", "date": "2024-07-18T22:21:20.543Z" }]

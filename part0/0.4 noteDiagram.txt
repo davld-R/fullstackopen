@@ -3,7 +3,29 @@ Note Diagram
   participant browser
   participant server
 
-  Note creating a new note
+  Note the page loads
+
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+  activate server
+  server-->>browser: HTML document
+  deactivate server
+
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+  activate server
+  server-->>browser: the css file
+  deactivate server
+
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+  activate server
+  server-->>browser: the JavaScript file
+  deactivate server
+
+  browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+  activate server
+  server-->>browser: [{ "content": "probanding", "date": "2024-07-18T20:28:27.449Z" }, ... ]
+  deactivate server
+
+  Note when I create the note, the page is reloaded and all files are reloaded again
 
   browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
   activate server
