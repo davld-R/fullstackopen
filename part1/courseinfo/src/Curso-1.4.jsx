@@ -38,7 +38,7 @@ const Content = (props) => {
   );
 };
 
-const App = () => {
+const Curso4 = () => {
   const course = 'Half Stack application development';
   const parts = [
     {
@@ -64,4 +64,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Curso4;
