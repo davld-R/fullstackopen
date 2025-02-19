@@ -1,3 +1,4 @@
+import Unicafe6 from './Unicafe-1.11-paso6';
 import Unicafe5 from './Unicafe-1.10-paso5';
 import Unicafe4 from './Unicafe-1.9-paso4';
 import Unicafe3 from './Unicafe-1.8-paso3';
@@ -11,7 +12,8 @@ const App = () => {
       {/* <Unicafe2 /> */}
       {/* <Unicafe3 /> */}
       {/* <Unicafe4 /> */}
-      <Unicafe5 />
+      {/* <Unicafe5 /> */}
+      <Unicafe6 />
     </>
   );
 };
