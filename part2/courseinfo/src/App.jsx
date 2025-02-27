@@ -1,4 +1,3 @@
-import Header from './components/Header';
 import Content from './components/Content';
 
 const App = () => {
@@ -49,7 +48,6 @@ const App = () => {
 
   return (
     <>
-      <Header text={course} />
       <Content course={course} />
     </>
   );
