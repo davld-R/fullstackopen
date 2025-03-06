@@ -1,9 +1,10 @@
 import Person from './Person';
 
-const Persons = ({ persons }) => {
+const Persons = ({ name, number, toggleDelete }) => {
   return (
     <div>
-      <Person person={persons} />
+      <Person name={name} number={number} />
+      <button onClick={toggleDelete}>Delete</button>
     </div>
   );
 };

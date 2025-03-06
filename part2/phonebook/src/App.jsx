@@ -1,31 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Persons from './components/Persons';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
+import personService from './services/personService';
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456', id: 1 },
-    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
-    { name: 'Dan Abramov', number: '12-43-234345', id: 3 },
-    { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 },
-  ]);
+  const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState('');
   const [newNumber, setNewNumber] = useState('');
   const [newFilter, setNewFilter] = useState('');
+
+  useEffect(() => {
+    personService.getAll().then((initialPerson) => {
+      setPersons(initialPerson);
+    });
+  }, []);
 
   const addPerson = (event) => {
     event.preventDefault();
     const object = {
       name: newName,
       number: newNumber,
-      id: persons.length + 1,
+      // id: persons.length + 1,
     };
     if (persons.find((e) => e.name === object.name)) {
       alert(`${newName} is already added to phonebook`);
     } else {
-      setPersons(persons.concat(object));
+      personService.create(object).then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson));
+      });
     }
+
     setNewName('');
     setNewNumber('');
   };
@@ -40,6 +45,16 @@ const App = () => {
 
   const handleChangeFilter = (event) => {
     setNewFilter(event.target.value);
+  };
+
+  const toglePersons = (id) => {
+    const person = persons.find((e) => e.id === id);
+
+    if (window.confirm(`Delete ${person.name} ?`)) {
+      personService.deletePerson(id).then((returnedPerson) => {
+        setPersons(persons.filter((e) => e.id !== id));
+      });
+    }
   };
 
   const result = persons.filter(
@@ -60,7 +75,14 @@ const App = () => {
       />
       <h2>Numbers</h2>
       <div>
-        <Persons persons={result} />
+        {result.map((e) => (
+          <Persons
+            key={e.id}
+            name={e.name}
+            number={e.number}
+            toggleDelete={() => toglePersons(e.id)}
+          />
+        ))}
       </div>
     </>
   );
